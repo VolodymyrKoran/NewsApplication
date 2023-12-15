@@ -11,6 +11,10 @@ public class NewsDeatilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_deatil);
-        title = getIntent().getStringExtra('')
+        title = getIntent().getStringExtra("title");
+        content = getIntent().getStringExtra("content");
+        desc = getIntent().getStringExtra("desc");
+        imageURL = getIntent().getStringExtra("image");
+        url = getIntent().getStringExtra("url");
     }
 }
