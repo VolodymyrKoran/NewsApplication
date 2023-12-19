@@ -15,9 +15,10 @@
         android:id="@+id/toolbar"
         app:title="News App"
         />
-    
-    <ScrollView
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:layout_above="@id/idBtnReadNews"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         >
@@ -27,15 +28,17 @@
             >
 
             <ImageView
+                android:id="@+id/idIVNews"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:id="@+id/idIVNews"
-                android:layout_margin="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="3dp"
                 android:padding="3dp"
-                />
-            
-            
+                android:scaleType="centerCrop" />
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,35 +51,39 @@
                 android:padding="4dp"
                 android:layout_margin="4dp"
                 />
-            
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sub Description"
-                android:layout_below="@id/idTVTitle"
-                android:layout_margin="4dp"
-                android:padding="4dp"
-                android:textColor="@color/white"
-                android:id="@id/idTVSubDesc"
-                android:textSize="18sp"
-                />
 
             <TextView
+                android:id="@+id/idTVSubDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/idTVTitle"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:padding="4dp"
+                android:text="Sub Description"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/idTVContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/idTVSubDesc"
-                android:id="@+id/idTVContent"
-                android:text="Content"
-                android:layout_margin="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
                 android:padding="4dp"
-                android:textColor="@color/white"
-                />
+                android:text="Content"
+                android:textColor="@color/white" />
 
 
 
         </RelativeLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
     <Button
@@ -84,13 +91,14 @@
         android:layout_height="wrap_content"
         android:text="Read full news"
         android:background="@color/yellow"
-        android:backgroundTint="@color/yellow"
+        app:backgroundTint="@color/yellow"
         android:textAllCaps="false"
-        android:id="@id/idBtnReadNews"
+        android:id="@+id/idBtnReadNews"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
+        android:padding="10dp"
         />
 
 </RelativeLayout>
