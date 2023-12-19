@@ -2,6 +2,7 @@ package com.example.newsapplication;
 
 import retrofit2.http.GET;
 import retrofit2.http.Url;
+import retrofit2.Call;
 
 public interface RetrofitAPI {
     @GET

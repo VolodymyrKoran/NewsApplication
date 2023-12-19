@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class MainActivity extends AppCompatActivity implements CategoryRVAdapter.CategorClickInterface{
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
         newsRV.setAdapter(newsRVAdapter);
         categoryRV.setAdapter(categoryRVAdapter);
         getCategories();
+        getNews("All");
+        newsRVAdapter.notifyDataSetChanged();
     }
 
 
@@ -80,7 +84,12 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
             public void onResponse(Call<NewsModal> call, Response<NewsModal> response){
                 NewsModal newsModal = response.body();
                 loadingPB.setVisibility(View.GONE);
-                ArrayList<Articles>
+                ArrayList<Articles> articles = newsModal.getArticles();
+                for (int i=0; i<articles.size(); i++){
+                    articlesArrayList.add(new Articles(articles.get(i).getTitle(),articles.get(i).getDescription(),articles.get(i).getUrlToImage(), articles.get(i).getUrl(),articles.get(i).getContent()));
+
+                }
+                newsRVAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -92,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
     }
     @Override
     public void onCategoryClick(int position) {
-
+        String category = categoryRVModalArrayList.get(position).getCategory();
+        getNews(category);
     }
 }

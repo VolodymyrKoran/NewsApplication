@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.ViewHolder> {
