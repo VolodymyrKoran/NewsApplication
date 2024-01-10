@@ -18,9 +18,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 
+/**
+ * The main activity of the News Application.
+ */
 public class MainActivity extends AppCompatActivity implements CategoryRVAdapter.CategorClickInterface{
 
     // 89259e6d9b144a33b1c34c77454f711a
+
 
     private RecyclerView newsRV,categoryRV;
     private ProgressBar loadingPB;
@@ -29,7 +33,12 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
     private CategoryRVAdapter categoryRVAdapter;
     private NewsRVAdapter newsRVAdapter;
 
-
+    /**
+     * Called when the activity is first created.
+     * Initializes UI components, adapters, and fetches news and categories.
+     *
+     * @param savedInstanceState The saved instance state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +58,11 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
         newsRVAdapter.notifyDataSetChanged();
     }
 
-
+    /**
+     * Fetches and adds predefined categories to the category list.
+     */
     private void getCategories(){
+        // Add predefined categories with images
         categoryRVModalArrayList.add(new CategoryRVModal("All", "https://images.unsplash.com/photo-1453475250267-163ff185e88e?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
         categoryRVModalArrayList.add(new CategoryRVModal("Technology", "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
         categoryRVModalArrayList.add(new CategoryRVModal("Science", "https://images.unsplash.com/photo-1614935151651-0bea6508db6b?q=80&w=1525&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"));
@@ -62,10 +74,17 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
         categoryRVAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Fetches news articles based on the specified category.
+     *
+     * @param category The selected news category.
+     */
     private void getNews(String category){
         loadingPB.setVisibility(View.VISIBLE);
         articlesArrayList.clear();
+        // Construct the URL based on the selected category
         String categoryURL = "https://newsapi.org/v2/top-headlines?country=in&category=" + category + "&apikey=89259e6d9b144a33b1c34c77454f711a";
+        // Construct the default URL for all categories
         String url = "https://newsapi.org/v2/top-headlines?country=in&excludeDomains=stackoverflow.com&sortBy=publishedAt&language=en&apiKey=89259e6d9b144a33b1c34c77454f711a";
         String BASE_URL = "https://newsapi.org/";
         Retrofit retrofit = new Retrofit.Builder()
@@ -82,11 +101,16 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
         call.enqueue(new Callback<NewsModal>() {
             @Override
             public void onResponse(Call<NewsModal> call, Response<NewsModal> response){
+                // Handle successful response
                 NewsModal newsModal = response.body();
                 loadingPB.setVisibility(View.GONE);
                 ArrayList<Articles> articles = newsModal.getArticles();
                 for (int i=0; i<articles.size(); i++){
-                    articlesArrayList.add(new Articles(articles.get(i).getTitle(),articles.get(i).getDescription(),articles.get(i).getUrlToImage(), articles.get(i).getUrl(),articles.get(i).getContent()));
+                    articlesArrayList.add(new Articles(articles.get(i).getTitle(),
+                            articles.get(i).getDescription(),
+                            articles.get(i).getUrlToImage(),
+                            articles.get(i).getUrl(),
+                            articles.get(i).getContent()));
 
                 }
                 newsRVAdapter.notifyDataSetChanged();
@@ -94,11 +118,19 @@ public class MainActivity extends AppCompatActivity implements CategoryRVAdapter
 
             @Override
             public void onFailure(Call<NewsModal> call, Throwable t){
+                // Handle failure to get news
                 Toast.makeText(MainActivity.this, "Fail to get news", Toast.LENGTH_SHORT).show();
             }
 
         });
     }
+
+    /**
+     * Callback method when a category is clicked.
+     * Fetches news for the selected category.
+     *
+     * @param position The position of the clicked category.
+     */
     @Override
     public void onCategoryClick(int position) {
         String category = categoryRVModalArrayList.get(position).getCategory();
