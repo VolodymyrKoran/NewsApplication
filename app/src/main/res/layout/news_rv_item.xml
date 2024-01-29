@@ -20,18 +20,20 @@
             />
 
         <TextView
+            android:id="@+id/idIVNewsHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/idIVNewsHeading"
             android:layout_below="@id/idIVNews"
-            android:textColor="@color/yellow"
-            android:text="New Heading"
-            android:textStyle="bold"
-            android:textSize="18sp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
             android:maxLines="2"
-            android:layout_margin="3dp"
             android:padding="3dp"
-            />
+            android:text="New Heading"
+            android:textColor="@color/yellow"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/idTVSubTitle"
